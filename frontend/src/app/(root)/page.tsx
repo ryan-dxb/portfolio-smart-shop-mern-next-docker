@@ -8,8 +8,7 @@ import ShopByCategory from "@/components/sections/ShopByCategory";
 
 export default function Home() {
   return (
-    <main className="my-8 content-container">
-      <FeatureBox />
+    <main className="content-container">
       <section className="grid grid-cols-12 mt-8">
         <div className="col-span-3">
           {/* Menu */}
@@ -19,6 +18,8 @@ export default function Home() {
           <HeroSection />
         </div>
       </section>
+
+      <FeatureBox />
 
       <section className="mt-16">
         <FeaturedProducts />

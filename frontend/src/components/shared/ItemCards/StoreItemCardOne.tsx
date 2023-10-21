@@ -1,4 +1,5 @@
-import { Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Heart, Star } from "lucide-react";
 import Image from "next/image";
 import React, { FC } from "react";
 
@@ -18,7 +19,9 @@ interface StoreItemCardOneProps {
 
 const StoreItemCardOne: FC<StoreItemCardOneProps> = ({ item }) => {
   return (
-    <div className="flex flex-col max-w-[200px]  w-full mx-auto border p-2 shadow-sm">
+    <div className="group relative flex flex-col max-w-[200px]  w-full mx-auto border p-2 shadow-sm">
+      <Heart className="absolute z-10 text-red-400 transition-all duration-200 translate-x-2 opacity-0 cursor-pointer group-hover:opacity-100 group-hover:translate-x-0 top-4 right-4 fill-red-400" />
+
       {/* Image */}
       <div className="relative max-w-[200px] h-40 ">
         {/* <Image/> */}
@@ -61,7 +64,7 @@ const StoreItemCardOne: FC<StoreItemCardOneProps> = ({ item }) => {
           </span>
         </p>
       </div>
-      <div className="flex flex-row items-center justify-between pt-3">
+      <div className="flex flex-row items-center justify-between pt-3 ">
         <div className="flex flex-row">
           <p className="text-sm font-semibold">$ {item.price}</p>
           <p className="ml-2 text-xs font-semibold line-through text-muted-foreground/70">
@@ -75,7 +78,20 @@ const StoreItemCardOne: FC<StoreItemCardOneProps> = ({ item }) => {
           </span>
         </p>
       </div>
-      <div></div>
+      <div className="flex flex-col pt-3 mt-auto space-y-2">
+        <Button
+          variant="default"
+          className="w-full rounded-none text-[10px] tracking-wider font-semibold uppercase opacity-80 hover:bg-primary hover:opacity-100 hover:text-white duration-300 transition-all"
+        >
+          Add to Cart
+        </Button>
+        <Button
+          variant="outline"
+          className="w-full text-[10px] tracking-wider font-semibold uppercase"
+        >
+          Quick View
+        </Button>
+      </div>
     </div>
   );
 };

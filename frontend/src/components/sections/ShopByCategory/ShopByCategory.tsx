@@ -8,7 +8,7 @@ import { ChevronRight } from "lucide-react";
 
 interface ShopByCategoryProps {}
 
-const categories = [
+export const categoriesData = [
   {
     name: "Electronics",
     icon: <BsPlug />,
@@ -76,7 +76,7 @@ const ShopByCategory: FC<ShopByCategoryProps> = () => {
           </h2>
         </div>
         <ul className="flex flex-col ">
-          {categories.map((category) => (
+          {categoriesData.map((category) => (
             <li key={category.name}>
               <a href={category.link}>
                 <div className="flex flex-row items-center justify-between w-full h-12 px-6 border">

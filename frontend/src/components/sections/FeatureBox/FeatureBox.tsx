@@ -8,7 +8,7 @@ interface FeatureBoxProps {}
 
 const FeatureBox: FC<FeatureBoxProps> = () => {
   return (
-    <section className="h-24 border">
+    <section className="h-24 mt-16 border">
       <div className="flex items-center h-full justify-evenly">
         <div className="flex flex-row items-center justify-center space-x-4">
           <LiaShippingFastSolid className="w-10 h-10" />
