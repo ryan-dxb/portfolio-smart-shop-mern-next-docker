@@ -70,7 +70,7 @@ const ShopByCategory: FC<ShopByCategoryProps> = () => {
   return (
     <section className="w-full">
       <div className="flex flex-col ">
-        <div className="flex items-center w-full h-12 px-6 bg-gray-200">
+        <div className="flex items-center w-full h-12 px-6 border-t border-x bg-gray-50">
           <h2 className="text-sm font-bold tracking-wide uppercase">
             Shop By Department
           </h2>
