@@ -1,8 +1,8 @@
 import { StoreItemCardOne } from "@/components/shared/ItemCards";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { NextPage } from "next";
+import React, { FC } from "react";
 
-interface FeaturedProductsProps {}
+interface PopularProductsProps {}
 
 const products = [
   {
@@ -73,7 +73,7 @@ const products = [
   },
 ];
 
-const FeaturedProducts: NextPage<FeaturedProductsProps> = () => {
+const PopularProducts: FC<PopularProductsProps> = () => {
   return (
     <>
       {/* Section Title */}
@@ -87,4 +87,4 @@ const FeaturedProducts: NextPage<FeaturedProductsProps> = () => {
   );
 };
 
-export default FeaturedProducts;
+export default PopularProducts;

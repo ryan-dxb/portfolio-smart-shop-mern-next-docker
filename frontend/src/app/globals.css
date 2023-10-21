@@ -79,6 +79,6 @@
 
 @layer components {
   .content-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 xl:px-0;
+    @apply  px-4 mx-auto max-w-7xl xl:px-2;
   }
 }
