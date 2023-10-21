@@ -1,0 +1,91 @@
+version: "3.9"
+
+services:
+  api:
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: ./docker/local/Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+      - ./backend/.env:/app/.env
+    depends_on:
+      - mongodb
+    environment:
+      NODE_ENV: development
+      MONGO_URI: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb
+      FORCE_COLOR: 1
+    networks:
+      - shop-app-network
+
+  client:
+    build:
+      context: ./frontend
+      dockerfile: ./docker/local/Dockerfile
+    restart: on-failure
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - shop-app-network
+
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    volumes:
+      - mongodb-data:/data/db # Persist data in a named volume (mongodb-data)
+    networks:
+      - shop-app-network
+
+  mongo-express:
+    image: mongo-express
+    depends_on:
+      - mongodb
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin123456
+    networks:
+      - shop-app-network
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    networks:
+      - shop-app-network
+
+  nginx:
+    build:
+      context: ./docker/local/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    restart: always
+    depends_on:
+      - api
+      - client
+    volumes:
+      - static_volume:/app/staticfiles
+    networks:
+      - shop-app-network
+
+networks:
+  shop-app-network:
+    driver: bridge
+
+volumes:
+  mongodb-data:
+  static_volume:
