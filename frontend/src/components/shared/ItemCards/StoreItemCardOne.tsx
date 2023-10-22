@@ -19,11 +19,11 @@ interface StoreItemCardOneProps {
 
 const StoreItemCardOne: FC<StoreItemCardOneProps> = ({ item }) => {
   return (
-    <div className="group relative flex flex-col max-w-[200px]  w-full mx-auto border p-2 shadow-sm">
+    <div className="relative flex flex-col w-full p-2 mx-auto border shadow-sm group">
       <Heart className="absolute z-10 text-red-400 transition-all duration-200 translate-x-2 opacity-0 cursor-pointer group-hover:opacity-100 group-hover:translate-x-0 top-4 right-4 fill-red-400" />
 
       {/* Image */}
-      <div className="relative max-w-[200px] h-40 ">
+      <div className="relative h-40 ">
         {/* <Image/> */}
         <Image
           src={item.image}

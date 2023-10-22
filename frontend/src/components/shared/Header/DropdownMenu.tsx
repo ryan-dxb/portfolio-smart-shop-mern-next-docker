@@ -17,7 +17,7 @@ interface DropDownMenuProps {
 const DropDownMenu: NextPage<DropDownMenuProps> = () => {
   return (
     <Select>
-      <SelectTrigger className="focus:ring-0 focus:ring-ring focus:ring-offset-0 relative w-64 h-[90%] bg-white self-end rounded-t-md flex items-center justify-between px-6 rounded-b-none">
+      <SelectTrigger className="focus:ring-0 focus:ring-ring focus:ring-offset-0 relative w-full h-[90%] bg-white self-end rounded-t-sm flex items-center justify-between px-6 rounded-b-none">
         <div className="flex items-center space-x-2">
           <Menu size={15} className="text-primary/50" />
           <SelectValue placeholder="All Categories" />

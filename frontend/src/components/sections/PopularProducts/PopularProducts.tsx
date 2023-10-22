@@ -4,7 +4,7 @@ import React, { FC } from "react";
 
 interface PopularProductsProps {}
 
-const products = [
+export const products = [
   {
     id: 1,
     title: "Samsung Ultra Wireless 550 Headphone With A35 Bluetooth",
