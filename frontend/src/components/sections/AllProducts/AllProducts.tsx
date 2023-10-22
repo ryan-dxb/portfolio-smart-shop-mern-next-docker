@@ -16,7 +16,7 @@ const AllProducts: FC<AllProductsProps> = () => {
       <div className="w-full mt-4 border">
         <GridListHeader />
       </div>
-      <div className="grid grid-cols-4 gap-2 px-2 pt-2 border-b border-x">
+      <div className="grid grid-cols-4 gap-2 px-2 py-2 border-b border-x">
         {products.map((product) => (
           <StoreItemCardOne key={product.id} item={product} />
         ))}
