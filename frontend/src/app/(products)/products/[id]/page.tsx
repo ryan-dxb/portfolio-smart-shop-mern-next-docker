@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Facebook,
   Heart,
@@ -17,7 +19,7 @@ interface SingleProductPageProps {}
 const SingleProductPage: NextPage<SingleProductPageProps> = () => {
   return (
     <main className="mt-6 content-container">
-      <div className="grid grid-cols-3 gap-x-12">
+      <section className="grid grid-cols-3 gap-x-12">
         <div className="w-full col-span-1 ">
           <div className="relative w-full h-96">
             <Image
@@ -140,16 +142,16 @@ const SingleProductPage: NextPage<SingleProductPageProps> = () => {
             <div className="flex flex-row items-center mt-4 space-x-2">
               <p className="inline-block w-16 text-xs text-gray-500">Size:</p>
 
-              <div className="flex flex-row items-center justify-center w-10 h-10 border rounded-full cursor-pointer hover:border-primary">
+              <div className="flex flex-row items-center justify-center w-8 h-8 border cursor-pointer hover:border-primary">
                 <p className="text-sm font-semibold">S</p>
               </div>
-              <div className="flex flex-row items-center justify-center w-10 h-10 border rounded-full cursor-pointer hover:border-primary">
+              <div className="flex flex-row items-center justify-center w-8 h-8 border cursor-pointer hover:border-primary">
                 <p className="text-sm font-semibold">M</p>
               </div>
-              <div className="flex flex-row items-center justify-center w-10 h-10 border rounded-full cursor-pointer hover:border-primary">
+              <div className="flex flex-row items-center justify-center w-8 h-8 border cursor-pointer hover:border-primary">
                 <p className="text-sm font-semibold">L</p>
               </div>
-              <div className="flex flex-row items-center justify-center w-10 h-10 border rounded-full cursor-pointer hover:border-primary">
+              <div className="flex flex-row items-center justify-center w-8 h-8 border cursor-pointer hover:border-primary">
                 <p className="text-sm font-semibold">XL</p>
               </div>
             </div>
@@ -160,19 +162,19 @@ const SingleProductPage: NextPage<SingleProductPageProps> = () => {
               <p className="inline-block w-16 text-xs text-gray-500">Color:</p>
 
               <div
-                className="flex flex-row items-center justify-center w-10 h-10 border rounded-full cursor-pointer hover:border-primary"
+                className="flex flex-row items-center justify-center w-8 h-8 border cursor-pointer hover:border-primary"
                 style={{ backgroundColor: "#000000" }}
               />
               <div
-                className="flex flex-row items-center justify-center w-10 h-10 border rounded-full cursor-pointer hover:border-primary"
+                className="flex flex-row items-center justify-center w-8 h-8 border cursor-pointer hover:border-primary"
                 style={{ backgroundColor: "#ffffff" }}
               />
               <div
-                className="flex flex-row items-center justify-center w-10 h-10 border rounded-full cursor-pointer hover:border-primary"
+                className="flex flex-row items-center justify-center w-8 h-8 border cursor-pointer hover:border-primary"
                 style={{ backgroundColor: "#ff0000" }}
               />
               <div
-                className="flex flex-row items-center justify-center w-10 h-10 border rounded-full cursor-pointer hover:border-primary"
+                className="flex flex-row items-center justify-center w-8 h-8 border cursor-pointer hover:border-primary"
                 style={{ backgroundColor: "#00ff00" }}
               />
             </div>
@@ -232,8 +234,146 @@ const SingleProductPage: NextPage<SingleProductPageProps> = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="p-4 mt-8 border">
+        <Tabs defaultValue="description" className="w-full">
+          <TabsList className="">
+            <TabsTrigger value="description" className="w-52">
+              Product Description
+            </TabsTrigger>
+            <TabsTrigger value="review" className="w-52">
+              Reviews
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="description" className="mt-6">
+            Description Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </TabsContent>
+          <TabsContent value="review" className="mt-6">
+            <div className="w-full p-4 border">
+              <div className="flex flex-col items-start space-y-1">
+                <p className="text-xl font-semibold text-gray-900">
+                  Customer Review
+                </p>
+                <div className="flex flex-row items-center space-x-1">
+                  {/* Rating */}
+                  {/* Create 5 stars and fill it with ratings */}
+
+                  {new Array(5).fill(0).map((_, i) => (
+                    <Star
+                      key={i}
+                      size={12}
+                      className={`${
+                        i < 4 ? "text-yellow-400 fill-yellow-400" : ""
+                      }`}
+                    />
+                  ))}
+
+                  <p className="text-sm">
+                    Based on{" "}
+                    <span className="text-xs text-primary">200 Reviews</span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col mt-8 space-y-2">
+                <ReviewItem />
+              </div>
+
+              <div className="w-full p-4 mt-8 border ">
+                <div className="flex flex-col items-start space-y-2">
+                  <p className="text-xl font-semibold text-gray-900">
+                    Add a Review
+                  </p>
+
+                  {/* Form */}
+                  <div className="w-full p-6 bg-gray-100">
+                    <div className="flex flex-row space-x-2">
+                      <Label className="">Your Rating: </Label>
+                      <div className="flex flex-row items-center space-x-1">
+                        {/* Rating */}
+                        {/* Create 5 stars and fill it with ratings */}
+
+                        {new Array(5).fill(0).map((_, i) => (
+                          <Star
+                            key={i}
+                            size={16}
+                            className={`${
+                              i < 4 ? "text-yellow-400 fill-yellow-400" : ""
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col mt-4">
+                      <Label className="">Your Review: </Label>
+                      <textarea
+                        className="w-full h-24 p-2 mt-2 border resize-none "
+                        rows={4}
+                        placeholder="Write your review here..."
+                      />
+                    </div>
+
+                    <div className="flex flex-row justify-end mt-4">
+                      <Button className="w-40 transition-all duration-200 rounded-none bg-primary opacity-80 hover:opacity-100 hover:bg-primary">
+                        <span className="text-sm font-semibold ">Submit</span>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </section>
     </main>
+  );
+};
+
+const ReviewItem = ({}) => {
+  return (
+    <div className="flex flex-row items-center space-x-10">
+      <div className="relative w-20 h-20 border">
+        <Image
+          src="/user-1.jpg"
+          alt="product"
+          fill
+          sizes="100%"
+          className="object-cover w-full h-full"
+        />
+      </div>
+
+      <div className="relative flex flex-col w-full p-6 bg-gray-100">
+        <div className="absolute left-0 w-8 h-8 rotate-45 -translate-x-1/2 -translate-y-1/2 bg-gray-100 top-1/2" />
+        <div className="flex flex-row justify-between ">
+          <div className="flex flex-row items-center space-x-1">
+            <p className="text-sm font-semibold text-gray-900">Harshil Patel</p>
+            <span>-</span>
+            <p className="text-sm font-light text-gray-500">2 days ago</p>
+          </div>
+
+          <div className="flex flex-row space-x-1">
+            {new Array(5).fill(0).map((_, i) => (
+              <Star
+                key={i}
+                size={12}
+                className={`${i < 4 ? "text-yellow-400 fill-yellow-400" : ""}`}
+              />
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="text-sm text-gray-700 line-clamp-2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quia
+            odio atque, itaque culpa perferendis ullam modi deleniti consectetur
+            distinctio autem excepturi? Quasi numquam facere perspiciatisQuam
+            quia odio
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 
