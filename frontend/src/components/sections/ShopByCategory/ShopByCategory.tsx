@@ -10,56 +10,67 @@ interface ShopByCategoryProps {}
 
 export const categoriesData = [
   {
+    id: "electronics",
     name: "Electronics",
     icon: <BsPlug />,
     link: "/search/category/electronics",
   },
   {
+    id: "computers",
     name: "Computers",
     icon: <MdComputer />,
     link: "/search/category/computers",
   },
   {
+    id: "home",
     name: "Home & Kitchen",
     icon: <MdOutlineKitchen />,
     link: "/search/category/home",
   },
   {
+    id: "toys",
     name: "Toys & Games",
     icon: <MdOutlineToys />,
     link: "/search/category/toys",
   },
   {
+    id: "books",
     name: "Books",
     icon: <BsBook />,
     link: "/search/category/books",
   },
   {
+    id: "beauty",
     name: "Beauty & Health",
     icon: <GiLipstick />,
     link: "/search/category/beauty",
   },
   {
+    id: "clothing",
     name: "Clothing",
     icon: <GiClothes />,
     link: "/search/category/clothing",
   },
   {
+    id: "sports",
     name: "Sports & Outdoors",
     icon: <MdSportsSoccer />,
     link: "/search/category/sports",
   },
   {
+    id: "automotive",
     name: "Automotive",
     icon: <IoCarSportOutline />,
     link: "/search/category/automotive",
   },
   {
+    id: "gaming",
     name: "Gaming & Consoles",
     icon: <IoGameControllerOutline />,
     link: "/search/category/gaming",
   },
   {
+    id: "more",
     name: "More Categories",
     icon: <BsPlusLg />,
     link: "/search/category/all",
