@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import RichTextEditor from "@/components/rteditor";
+import InputWithLabel from "../InputWithLabel";
 
 interface AddNewProductFormProps {}
 
@@ -60,36 +61,36 @@ const AddNewProductForm: FC<AddNewProductFormProps> = () => {
   );
 };
 
-const InputWithLabel: FC<{
-  label: string;
-  name: string;
-  placeholder?: string;
-  type?: "text" | "textarea";
-}> = ({ label, name, placeholder, type }) => {
-  return (
-    <div className="flex flex-col w-full space-y-1">
-      <Label
-        htmlFor={name}
-        className="text-xs font-medium text-gray-600 uppercase"
-      >
-        {label}
-      </Label>
+// const InputWithLabel: FC<{
+//   label: string;
+//   name: string;
+//   placeholder?: string;
+//   type?: "text" | "textarea";
+// }> = ({ label, name, placeholder, type }) => {
+//   return (
+//     <div className="flex flex-col w-full space-y-1">
+//       <Label
+//         htmlFor={name}
+//         className="text-xs font-medium text-gray-600 uppercase"
+//       >
+//         {label}
+//       </Label>
 
-      {type === "textarea" ? (
-        <Textarea
-          className="w-full text-sm placeholder:text-gray-400 focus:ring-0 focus:border-primary focus-visible:ring-0"
-          placeholder={placeholder}
-          rows={3}
-          maxLength={255}
-        />
-      ) : (
-        <Input
-          id={name}
-          className="w-full text-sm focus:ring-0 focus:border-primary focus-visible:ring-0"
-        />
-      )}
-    </div>
-  );
-};
+//       {type === "textarea" ? (
+//         <Textarea
+//           className="w-full text-sm placeholder:text-gray-400 focus:ring-0 focus:border-primary focus-visible:ring-0"
+//           placeholder={placeholder}
+//           rows={3}
+//           maxLength={255}
+//         />
+//       ) : (
+//         <Input
+//           id={name}
+//           className="w-full text-sm focus:ring-0 focus:border-primary focus-visible:ring-0"
+//         />
+//       )}
+//     </div>
+//   );
+// };
 
 export default AddNewProductForm;

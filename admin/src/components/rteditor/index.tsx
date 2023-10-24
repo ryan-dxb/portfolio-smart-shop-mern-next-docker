@@ -1,8 +1,8 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Label } from "../ui/label";
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, getMarkRange, Range } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { ScrollArea } from "../ui/scroll-area";
 import EditorToolbar from "./Toolbar/EditorToolbar";
@@ -13,10 +13,13 @@ import Placeholder from "@tiptap/extension-placeholder";
 import Link from "@tiptap/extension-link";
 import Youtube from "@tiptap/extension-youtube";
 import TipTapImage from "@tiptap/extension-image";
+import EditLink from "./Toolbar/Link/EditLink";
 
 interface RichTextEditorProps {}
 
 const RichTextEditor: FC<RichTextEditorProps> = () => {
+  const [selectionRange, setSelectionRange] = useState<Range>();
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -24,23 +27,52 @@ const RichTextEditor: FC<RichTextEditorProps> = () => {
       Placeholder.configure({
         placeholder: "You can write your full product description here...",
       }),
-      Link,
+      Link.extend({
+        inclusive: false,
+      }).configure({
+        openOnClick: false,
+        HTMLAttributes: {
+          target: "_blank",
+          rel: "noopener noreferrer",
+
+          class: "rich-text-link",
+        },
+        linkOnPaste: true,
+      }),
       Youtube,
       TipTapImage,
     ],
 
     onUpdate() {
       const content = editor?.getHTML();
-      console.log(content);
     },
 
     editorProps: {
+      handleClick(view, pos, event) {
+        const state = view.state;
+        const selectionRange = getMarkRange(
+          state.doc.resolve(pos),
+          state.schema.marks.link
+        );
+
+        if (selectionRange) {
+          setSelectionRange(selectionRange);
+        }
+      },
+
       attributes: {
         class:
-          "font-normal prose dark:prose-invert prose-sm xl:prose-lg py-4 focus:outline-none mx-auto",
+          "font-normal prose dark:prose-invert prose-sm mt-6 py-4 focus:outline-none mx-auto",
       },
     },
   });
+
+  useEffect(() => {
+    if (editor && selectionRange) {
+      editor.commands.setTextSelection(selectionRange);
+    }
+  }, [editor, selectionRange]);
+
   return (
     <div>
       <Label
@@ -53,6 +85,7 @@ const RichTextEditor: FC<RichTextEditorProps> = () => {
         <div className="w-full overflow-x-auto overflow-y-hidden border-b h-14 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted">
           {editor && <EditorToolbar editor={editor} />}
         </div>
+        {editor ? <EditLink editor={editor} /> : null}
         <div className="w-full h-[200px]  mx-auto overflow-auto ">
           {editor && <EditorContent editor={editor} />}
         </div>

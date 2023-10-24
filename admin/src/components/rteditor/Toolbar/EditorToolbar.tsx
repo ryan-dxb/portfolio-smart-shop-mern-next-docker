@@ -10,6 +10,7 @@ import {
   AiFillCaretDown,
   AiOutlineOrderedList,
   AiOutlineUnorderedList,
+  AiOutlineLink,
 } from "react-icons/ai";
 import { RiDoubleQuotesL } from "react-icons/ri";
 import { BsCode, BsBraces } from "react-icons/bs";
@@ -18,13 +19,32 @@ import { getFocusedEditor } from "@/lib/utils";
 import HeadingDropdown from "./HeadingDropdown";
 import { Level } from "@tiptap/extension-heading";
 import EmbedYoutubeVideo from "./EmbedYoutubeVideo";
+import InsertLinkModal, { LinkData } from "./Link/InsertLinkModal";
 
 interface EditorToolbarProps {
   editor: Editor;
 }
 
 const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
-  console.log(editor.isActive("orderedList"));
+  const getSelectionRange = useCallback(() => {
+    const { from, to } = editor.state.selection;
+
+    return { from, to };
+  }, [editor]);
+
+  const getSelectionText = useCallback(() => {
+    const { from, to } = editor.state.selection;
+
+    return editor.state.doc.textBetween(from, to);
+  }, [editor]);
+
+  const getExistingLink = useCallback(() => {
+    const exisitingLink = editor.isActive("link")
+      ? editor.getAttributes("link")
+      : "";
+
+    return exisitingLink;
+  }, [editor.getAttributes("link")]);
 
   const headerOptions = [
     {
@@ -74,6 +94,34 @@ const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
   const handleYoutubeVideo = (url: string) => {
     editor.chain().focus().setYoutubeVideo({ src: url }).run();
   };
+
+  const handleLinkSubmit = ({ href, openInNewTab, rel }: LinkData) => {
+    console.log(href);
+
+    if (openInNewTab) {
+      editor.commands.setLink({
+        href: href,
+        target: "_blank",
+        rel: rel ?? "noopener noreferrer nofollow",
+      });
+    } else {
+      editor.commands.setLink({
+        href: href,
+        target: "_self",
+        rel: rel ?? "noopener noreferrer nofollow",
+      });
+    }
+  };
+
+  const getInitialState = useCallback(() => {
+    const { href, target, rel } = editor.getAttributes("link");
+
+    return {
+      href: href,
+      openInNewTab: target === "_blank" ? true : false,
+      rel: rel,
+    };
+  }, [editor]);
 
   return (
     <div className="flex flex-row items-center h-full mx-4">
@@ -135,7 +183,14 @@ const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
         />
       </div>
 
-      <div className="ml-4">
+      <div className="ml-4 space-x-1">
+        <InsertLinkModal
+          selectedText={getSelectionText()}
+          handleSubmit={handleLinkSubmit}
+          initialState={getInitialState()}
+        >
+          <AiOutlineLink className="w-5 h-5" />
+        </InsertLinkModal>
         <EmbedYoutubeVideo handleSubmit={handleYoutubeVideo} />
       </div>
     </div>

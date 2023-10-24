@@ -69,3 +69,9 @@
   font-size: medium;
 
 }
+
+@layer components {
+  .rich-text-link {
+    @apply text-primary;
+  }
+}
