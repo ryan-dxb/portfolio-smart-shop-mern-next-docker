@@ -50,7 +50,7 @@ const RichTextEditor: FC<RichTextEditorProps> = () => {
         Product Description
       </Label>
       <div className="flex flex-col h-[240px] border overflow-hidden">
-        <div className="w-full h-12 overflow-x-scroll border-b scrollbar-thin">
+        <div className="w-full overflow-x-auto overflow-y-hidden border-b h-14 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted">
           {editor && <EditorToolbar editor={editor} />}
         </div>
         <div className="w-full h-[200px]  mx-auto overflow-auto ">

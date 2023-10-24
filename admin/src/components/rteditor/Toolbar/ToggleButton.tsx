@@ -32,7 +32,7 @@ const ToggleButton: FC<ToggleButtonProps> = ({
     <Button
       variant="ghost"
       className={cn(
-        "w-8 h-8 rounded hover:text-accent-foreground hover:bg-primary data-[state=on]:bg-primary data-[state=on]:text-accent-foreground bg-transparent px-2",
+        "w-8 h-8 rounded hover:text-accent-foreground hover:bg-primary  bg-transparent px-2",
         active && "bg-primary text-accent-foreground"
       )}
       onClick={onClick}

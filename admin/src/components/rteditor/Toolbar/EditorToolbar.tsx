@@ -17,6 +17,7 @@ import ToggleButton from "./ToggleButton";
 import { getFocusedEditor } from "@/lib/utils";
 import HeadingDropdown from "./HeadingDropdown";
 import { Level } from "@tiptap/extension-heading";
+import EmbedYoutubeVideo from "./EmbedYoutubeVideo";
 
 interface EditorToolbarProps {
   editor: Editor;
@@ -70,16 +71,8 @@ const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
     else return false;
   }, [editor]);
 
-  // Dropdown for heading
-  const Head = () => {
-    console.log(getLabel());
-
-    return (
-      <div className=" max-w-[90%] flex items-center space-x-2 cursor-pointer">
-        <p>{getLabel()}</p>
-        <AiFillCaretDown />
-      </div>
-    );
+  const handleYoutubeVideo = (url: string) => {
+    editor.chain().focus().setYoutubeVideo({ src: url }).run();
   };
 
   return (
@@ -140,6 +133,10 @@ const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
           active={editor.isActive("codeBlock")}
           onClick={() => getFocusedEditor(editor).toggleCodeBlock().run()}
         />
+      </div>
+
+      <div className="ml-4">
+        <EmbedYoutubeVideo handleSubmit={handleYoutubeVideo} />
       </div>
     </div>
   );
