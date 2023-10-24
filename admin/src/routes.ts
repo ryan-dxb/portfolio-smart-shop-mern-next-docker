@@ -24,6 +24,25 @@ export const useRoutes = () => {
         ],
       },
       {
+        label: "Products",
+        href: "/products",
+        active: pathname === "/products",
+        subRoutes: [
+          {
+            label: "All Products",
+            href: "/products",
+            active: pathname === "/products",
+            icon: BsPostcard,
+          },
+          {
+            label: "Add New",
+            href: "/products/add",
+            active: pathname === "/products/add",
+            icon: IoCreateOutline,
+          },
+        ],
+      },
+      {
         label: "Posts",
         href: "/posts",
         active: pathname === "/posts",

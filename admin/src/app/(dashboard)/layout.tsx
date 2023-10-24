@@ -1,6 +1,7 @@
 import { FC, ReactNode } from "react";
 import Sidebar from "@/components/common/sidebar/Sidebar";
 import Header from "@/components/common/header/Header";
+import Footer from "@/components/common/footer/Footer";
 
 interface LayoutProps {
   children: ReactNode;
@@ -8,18 +9,16 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="flex flex-row w-full h-screen overflow-hidden ">
-      <div className="flex border">
+    <div className="flex w-full h-screen overflow-hidden">
+      <div className="flex border-r">
         {/* Sidebar */}
         <Sidebar />
       </div>
-      <div className="flex flex-1 ">
-        <div className="w-full">
-          <Header />
-          {/* Main Content */}
-          {children}
-        </div>
-      </div>
+
+      <Header />
+      {/* Main Content */}
+      <main className="flex flex-col flex-1 py-16 pl-64">{children}</main>
+      <Footer />
     </div>
   );
 };

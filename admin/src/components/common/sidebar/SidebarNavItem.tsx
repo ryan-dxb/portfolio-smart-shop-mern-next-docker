@@ -26,7 +26,7 @@ const SidebarNavItem: FC<SidebarNavItemProps> = ({ route }) => {
       {route.subRoutes && (
         <ul className="mb-4">
           {route.subRoutes.map((subRoute) => (
-            <li>
+            <li key={subRoute.label}>
               <Link
                 href={subRoute.href}
                 key={subRoute.label}

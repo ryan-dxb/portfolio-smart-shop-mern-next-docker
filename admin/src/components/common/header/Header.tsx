@@ -19,7 +19,7 @@ interface HeaderProps {}
 
 const Header: FC<HeaderProps> = () => {
   return (
-    <header className="flex flex-row items-center justify-end h-16 px-6 border-b">
+    <header className="fixed top-0 left-64 right-0 flex flex-row items-center justify-end h-16 min-h-[64px] px-6 border-b">
       <div className="flex flex-row items-center justify-center h-14 ">
         {/* Search */}
 
