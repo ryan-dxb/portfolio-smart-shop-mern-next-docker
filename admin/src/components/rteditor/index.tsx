@@ -37,7 +37,7 @@ const RichTextEditor: FC<RichTextEditorProps> = () => {
     editorProps: {
       attributes: {
         class:
-          "font-normal prose dark:prose-invert prose-sm m-5 focus:outline-none ",
+          "font-normal prose dark:prose-invert prose-sm xl:prose-lg py-4 focus:outline-none mx-auto",
       },
     },
   });
@@ -49,13 +49,14 @@ const RichTextEditor: FC<RichTextEditorProps> = () => {
       >
         Product Description
       </Label>
-      <ScrollArea className="w-full h-[240px] border">
-        <div className="w-full h-12 border-b">
+      <div className="flex flex-col h-[240px] border overflow-hidden">
+        <div className="w-full h-12 overflow-x-scroll border-b scrollbar-thin">
           {editor && <EditorToolbar editor={editor} />}
         </div>
-
-        {editor && <EditorContent editor={editor} />}
-      </ScrollArea>
+        <div className="w-full h-[200px]  mx-auto overflow-auto ">
+          {editor && <EditorContent editor={editor} />}
+        </div>
+      </div>
     </div>
   );
 };

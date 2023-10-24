@@ -8,7 +8,11 @@ import {
   AiOutlineUnderline,
   AiOutlineStrikethrough,
   AiFillCaretDown,
+  AiOutlineOrderedList,
+  AiOutlineUnorderedList,
 } from "react-icons/ai";
+import { RiDoubleQuotesL } from "react-icons/ri";
+import { BsCode, BsBraces } from "react-icons/bs";
 import ToggleButton from "./ToggleButton";
 import { getFocusedEditor } from "@/lib/utils";
 import HeadingDropdown from "./HeadingDropdown";
@@ -19,6 +23,8 @@ interface EditorToolbarProps {
 }
 
 const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
+  console.log(editor.isActive("orderedList"));
+
   const headerOptions = [
     {
       label: "Paragraph",
@@ -69,7 +75,7 @@ const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
     console.log(getLabel());
 
     return (
-      <div className="flex items-center space-x-2 cursor-pointer">
+      <div className=" max-w-[90%] flex items-center space-x-2 cursor-pointer">
         <p>{getLabel()}</p>
         <AiFillCaretDown />
       </div>
@@ -106,6 +112,33 @@ const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
           options={headerOptions}
           getLabel={getLabel}
           setHeading={setHeading}
+        />
+      </div>
+
+      <div className="flex ml-4 space-x-1">
+        <ToggleButton
+          icon={AiOutlineOrderedList}
+          active={editor.isActive("orderedList")}
+          onClick={() => getFocusedEditor(editor).toggleOrderedList().run()}
+        />
+        <ToggleButton
+          icon={AiOutlineUnorderedList}
+          active={editor.isActive("bulletList")}
+          onClick={() => getFocusedEditor(editor).toggleBulletList().run()}
+        />
+      </div>
+
+      <div className="flex ml-4 space-x-1">
+        <ToggleButton
+          icon={RiDoubleQuotesL}
+          active={editor.isActive("blockquote")}
+          onClick={() => getFocusedEditor(editor).toggleBlockquote().run()}
+        />
+
+        <ToggleButton
+          icon={BsBraces}
+          active={editor.isActive("codeBlock")}
+          onClick={() => getFocusedEditor(editor).toggleCodeBlock().run()}
         />
       </div>
     </div>
