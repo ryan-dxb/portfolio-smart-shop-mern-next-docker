@@ -13,20 +13,25 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import VariantOptionDropDown from "./VariantOptionDropDown";
 import { AiOutlineDelete } from "react-icons/ai";
+import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
+import CategoryDropDown from "./CategoryDropDown";
+import TagDropDown from "./TagsDropDown";
 
 interface AddNewProductFormProps {}
 
 const AddNewProductSchema = z.object({});
 
 const AddNewProductForm: FC<AddNewProductFormProps> = () => {
-  const [variants, setVariants] = useState<JSX.Element[]>([]);
+  // const [variants, setVariants] = useState<JSX.Element[]>([]);
 
-  const addVariant = () => {
-    if (variants.length >= 4) return;
-    setVariants(
-      variants.concat(<ProductVariantCard index={variants.length + 1} />)
-    );
-  };
+  // const addVariant = () => {
+  //   if (variants.length >= 4) return;
+  //   setVariants(
+  //     variants.concat(<ProductVariantCard index={variants.length + 1} />)
+  //   );
+  // };
 
   const { register, handleSubmit, formState } = useForm<
     z.infer<typeof AddNewProductSchema>
@@ -93,21 +98,17 @@ const AddNewProductForm: FC<AddNewProductFormProps> = () => {
                 </div>
               </div>
 
-              <div>
+              {/* <div>
                 <Label className="text-xs font-medium text-gray-600 uppercase">
                   Product Variants
                 </Label>
                 <div className="flex flex-col p-4 border">
                   {variants.length > 0 && variants}
-                  <Button
-                    onClick={addVariant}
-                    variant="default"
-                    className="mt-4"
-                  >
+                  <Button onClick={addVariant} variant="default" className="">
                     Add Variant
                   </Button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -116,32 +117,78 @@ const AddNewProductForm: FC<AddNewProductFormProps> = () => {
       </div>
 
       {/* Right Side */}
-      <div className="w-full h-20 col-span-1 border"></div>
-    </div>
-  );
-};
+      <div className="w-full  col-span-1 ">
+        <div className="w-full p-4 border">
+          <h3 className="text-lg font-semibold">Pricing</h3>
 
-type ProductVariantProps = {
-  index?: number;
-};
-const ProductVariantCard: FC<ProductVariantProps> = ({ index }) => {
-  return (
-    <div className="flex flex-row items-center space-x-8">
-      <Label className="text-xs font-medium text-gray-500">
-        Variant {index}
-      </Label>
-      <div className="flex flex-row space-x-4 items-center">
-        <VariantOptionDropDown />
-        <VariantOptionDropDown />
+          <div className="mt-6">
+            <div className="flex flex-col space-y-4">
+              <InputWithLabel label="Base Price" name="base-price" />
+              <InputWithLabel
+                label="Discounted Price"
+                name="discounted-price"
+              />
 
-        <Input placeholder="Price" className="flex flex-1" />
+              <Separator />
 
-        <Button variant="ghost" className="h-10 w-10 p-0 m-0 rounded">
-          <AiOutlineDelete className="h-4 w-4 m-2 fill-red-500" />
-        </Button>
+              <div className="flex flex-row justify-between">
+                <Label
+                  htmlFor="taxable"
+                  className="text-xs font-medium text-gray-600 uppercase"
+                >
+                  Is product taxable?
+                </Label>
+                <Checkbox id="taxable" className="rounded" />
+              </div>
+              <div className="flex flex-row justify-between">
+                <Label
+                  htmlFor="in-stock"
+                  className="text-xs font-medium text-gray-600 uppercase"
+                >
+                  In Stock
+                </Label>
+                <Switch className="h-4 w-8" id="in-stock" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full p-4 border mt-4">
+          <h3 className="text-lg font-semibold">Product Organization</h3>
+
+          <div className="mt-6">
+            <div className="flex flex-col space-y-4">
+              <CategoryDropDown />
+              <TagDropDown />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
+// type ProductVariantProps = {
+//   index?: number;
+// };
+// const ProductVariantCard: FC<ProductVariantProps> = ({ index }) => {
+//   return (
+//     <div className="flex flex-row items-center space-x-8 mb-4">
+//       <Label className="text-xs font-medium text-gray-500">
+//         Variant {index}
+//       </Label>
+//       <div className="flex flex-row space-x-4 items-center">
+//         <VariantOptionDropDown />
+//         <VariantOptionDropDown />
+
+//         <Input placeholder="Price" className="flex flex-1" />
+
+//         <Button variant="ghost" className="h-10 w-10 p-0 m-0 rounded">
+//           <AiOutlineDelete className="h-4 w-4 m-2 fill-red-500" />
+//         </Button>
+//       </div>
+//     </div>
+//   );
+// };
 
 export default AddNewProductForm;
