@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AiOutlineLink } from "react-icons/ai";
-import InputWithLabel from "@/components/forms/InputWithLabel";
+import InputWithLabel from "@/components/common/InputWithLabel";
 import { Checkbox } from "@/components/ui/checkbox";
 
 export type LinkData = {

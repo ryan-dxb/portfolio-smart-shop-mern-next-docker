@@ -1,4 +1,4 @@
-import InputWithLabel from "@/components/forms/InputWithLabel";
+import InputWithLabel from "@/components/common/InputWithLabel";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,

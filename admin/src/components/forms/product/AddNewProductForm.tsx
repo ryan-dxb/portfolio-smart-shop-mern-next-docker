@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,13 +8,26 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import RichTextEditor from "@/components/rteditor";
-import InputWithLabel from "../InputWithLabel";
+import InputWithLabel from "../../common/InputWithLabel";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import VariantOptionDropDown from "./VariantOptionDropDown";
+import { AiOutlineDelete } from "react-icons/ai";
 
 interface AddNewProductFormProps {}
 
 const AddNewProductSchema = z.object({});
 
 const AddNewProductForm: FC<AddNewProductFormProps> = () => {
+  const [variants, setVariants] = useState<JSX.Element[]>([]);
+
+  const addVariant = () => {
+    if (variants.length >= 4) return;
+    setVariants(
+      variants.concat(<ProductVariantCard index={variants.length + 1} />)
+    );
+  };
+
   const { register, handleSubmit, formState } = useForm<
     z.infer<typeof AddNewProductSchema>
   >({
@@ -48,6 +61,53 @@ const AddNewProductForm: FC<AddNewProductFormProps> = () => {
               />
 
               <RichTextEditor />
+
+              <div>
+                <Label className="text-xs font-medium text-gray-600 uppercase">
+                  Product Images
+                </Label>
+                <div className="grid grid-cols-4 border gap-4 p-4">
+                  <div className="flex flex-col aspect-square border">
+                    <div className="flex flex-1 ">
+                      <div className="relative w-full h-full bg-gray-50">
+                        <Image
+                          src="/product-camera.jpg"
+                          fill
+                          alt="product image"
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <Button
+                        variant="outline"
+                        className="w-full text-red-500 hover:text-red-600"
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="aspect-square border"></div>
+                  <div className="aspect-square border"></div>
+                  <div className="aspect-square border"></div>
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-xs font-medium text-gray-600 uppercase">
+                  Product Variants
+                </Label>
+                <div className="flex flex-col p-4 border">
+                  {variants.length > 0 && variants}
+                  <Button
+                    onClick={addVariant}
+                    variant="default"
+                    className="mt-4"
+                  >
+                    Add Variant
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -61,36 +121,27 @@ const AddNewProductForm: FC<AddNewProductFormProps> = () => {
   );
 };
 
-// const InputWithLabel: FC<{
-//   label: string;
-//   name: string;
-//   placeholder?: string;
-//   type?: "text" | "textarea";
-// }> = ({ label, name, placeholder, type }) => {
-//   return (
-//     <div className="flex flex-col w-full space-y-1">
-//       <Label
-//         htmlFor={name}
-//         className="text-xs font-medium text-gray-600 uppercase"
-//       >
-//         {label}
-//       </Label>
+type ProductVariantProps = {
+  index?: number;
+};
+const ProductVariantCard: FC<ProductVariantProps> = ({ index }) => {
+  return (
+    <div className="flex flex-row items-center space-x-8">
+      <Label className="text-xs font-medium text-gray-500">
+        Variant {index}
+      </Label>
+      <div className="flex flex-row space-x-4 items-center">
+        <VariantOptionDropDown />
+        <VariantOptionDropDown />
 
-//       {type === "textarea" ? (
-//         <Textarea
-//           className="w-full text-sm placeholder:text-gray-400 focus:ring-0 focus:border-primary focus-visible:ring-0"
-//           placeholder={placeholder}
-//           rows={3}
-//           maxLength={255}
-//         />
-//       ) : (
-//         <Input
-//           id={name}
-//           className="w-full text-sm focus:ring-0 focus:border-primary focus-visible:ring-0"
-//         />
-//       )}
-//     </div>
-//   );
-// };
+        <Input placeholder="Price" className="flex flex-1" />
+
+        <Button variant="ghost" className="h-10 w-10 p-0 m-0 rounded">
+          <AiOutlineDelete className="h-4 w-4 m-2 fill-red-500" />
+        </Button>
+      </div>
+    </div>
+  );
+};
 
 export default AddNewProductForm;
