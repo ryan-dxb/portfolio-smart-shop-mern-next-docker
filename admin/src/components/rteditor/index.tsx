@@ -36,11 +36,17 @@ const RichTextEditor: FC<RichTextEditorProps> = () => {
           target: "_blank",
           rel: "noopener noreferrer",
 
-          class: "rich-text-link",
+          class: "text-primary underline",
         },
         linkOnPaste: true,
       }),
-      Youtube,
+      Youtube.configure({
+        inline: false,
+
+        HTMLAttributes: {
+          class: "w-full mx-auto aspect-w-16 aspect-h-9",
+        },
+      }),
       TipTapImage,
     ],
 

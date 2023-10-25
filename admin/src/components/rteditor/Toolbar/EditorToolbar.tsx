@@ -21,6 +21,8 @@ import { Level } from "@tiptap/extension-heading";
 import EmbedYoutubeVideo from "./EmbedYoutubeVideo";
 import InsertLinkModal, { LinkData } from "./Link/InsertLinkModal";
 import { Button } from "@/components/ui/button";
+import ImageUpload from "./Image";
+import { BiImageAdd } from "react-icons/bi";
 
 interface EditorToolbarProps {
   editor: Editor;
@@ -184,6 +186,17 @@ const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
           </Button>
         </InsertLinkModal>
         <EmbedYoutubeVideo handleSubmit={handleYoutubeVideo} />
+      </div>
+
+      <div className="ml-4">
+        <ImageUpload editor={editor}>
+          <Button
+            variant="ghost"
+            className="w-8 h-8 px-0 bg-transparent rounded hover:text-accent-foreground hover:bg-primary"
+          >
+            <BiImageAdd className="w-5 h-5" />
+          </Button>
+        </ImageUpload>
       </div>
     </div>
   );
