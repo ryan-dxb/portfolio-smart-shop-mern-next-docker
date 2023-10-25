@@ -33,7 +33,7 @@ interface InsertLinkModalProps {
 const defaultState = {
   href: "",
   openInNewTab: false,
-  rel: "",
+  rel: "noopener noreferrer nofollow",
 };
 
 const InsertLinkModal: FC<InsertLinkModalProps> = ({
@@ -43,6 +43,8 @@ const InsertLinkModal: FC<InsertLinkModalProps> = ({
   children,
 }) => {
   const [link, setLink] = useState<LinkData>(defaultState);
+
+  console.log("Inital state: ", initialState);
 
   const handleSubmitLink = () => {
     handleSubmit(link);
@@ -61,14 +63,7 @@ const InsertLinkModal: FC<InsertLinkModalProps> = ({
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          className="w-8 h-8 px-0 bg-transparent rounded hover:text-accent-foreground hover:bg-primary"
-        >
-          {children}
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Insert/Edit Link</DialogTitle>
@@ -94,7 +89,14 @@ const InsertLinkModal: FC<InsertLinkModalProps> = ({
             disabled
           />
           <div className="flex items-center space-x-2">
-            <Checkbox id="openInNewTab" className="rounded" />
+            <Checkbox
+              id="openInNewTab"
+              className="rounded"
+              defaultChecked={link.openInNewTab}
+              onCheckedChange={(e) =>
+                setLink((prev) => ({ ...prev, openInNewTab: e as boolean }))
+              }
+            />
             <Label htmlFor="openInNewTab" className="text-muted-foreground">
               Open in new tab
             </Label>

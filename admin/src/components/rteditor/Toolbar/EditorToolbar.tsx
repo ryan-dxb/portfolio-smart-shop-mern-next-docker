@@ -20,32 +20,13 @@ import HeadingDropdown from "./HeadingDropdown";
 import { Level } from "@tiptap/extension-heading";
 import EmbedYoutubeVideo from "./EmbedYoutubeVideo";
 import InsertLinkModal, { LinkData } from "./Link/InsertLinkModal";
+import { Button } from "@/components/ui/button";
 
 interface EditorToolbarProps {
   editor: Editor;
 }
 
 const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
-  const getSelectionRange = useCallback(() => {
-    const { from, to } = editor.state.selection;
-
-    return { from, to };
-  }, [editor]);
-
-  const getSelectionText = useCallback(() => {
-    const { from, to } = editor.state.selection;
-
-    return editor.state.doc.textBetween(from, to);
-  }, [editor]);
-
-  const getExistingLink = useCallback(() => {
-    const exisitingLink = editor.isActive("link")
-      ? editor.getAttributes("link")
-      : "";
-
-    return exisitingLink;
-  }, [editor.getAttributes("link")]);
-
   const headerOptions = [
     {
       label: "Paragraph",
@@ -112,6 +93,12 @@ const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
       });
     }
   };
+
+  const getSelectionText = useCallback(() => {
+    const { from, to } = editor.state.selection;
+
+    return editor.state.doc.textBetween(from, to);
+  }, [editor]);
 
   const getInitialState = useCallback(() => {
     const { href, target, rel } = editor.getAttributes("link");
@@ -189,7 +176,12 @@ const EditorToolbar: FC<EditorToolbarProps> = ({ editor }) => {
           handleSubmit={handleLinkSubmit}
           initialState={getInitialState()}
         >
-          <AiOutlineLink className="w-5 h-5" />
+          <Button
+            variant="ghost"
+            className="w-8 h-8 px-0 bg-transparent rounded hover:text-accent-foreground hover:bg-primary"
+          >
+            <AiOutlineLink className="w-5 h-5" />
+          </Button>
         </InsertLinkModal>
         <EmbedYoutubeVideo handleSubmit={handleYoutubeVideo} />
       </div>

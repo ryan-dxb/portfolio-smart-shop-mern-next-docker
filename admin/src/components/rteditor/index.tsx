@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { useEditor, EditorContent, getMarkRange, Range } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -30,6 +30,7 @@ const RichTextEditor: FC<RichTextEditorProps> = () => {
       Link.extend({
         inclusive: false,
       }).configure({
+        autolink: false,
         openOnClick: false,
         HTMLAttributes: {
           target: "_blank",
@@ -71,6 +72,10 @@ const RichTextEditor: FC<RichTextEditorProps> = () => {
     if (editor && selectionRange) {
       editor.commands.setTextSelection(selectionRange);
     }
+
+    return () => {
+      setSelectionRange(undefined);
+    };
   }, [editor, selectionRange]);
 
   return (
