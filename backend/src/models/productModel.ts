@@ -11,7 +11,7 @@ export interface ProductInput {
   discount_price: number;
   stock: {
     total_over_lifetime: number;
-    stock_left: Function;
+    stock_left: number;
     stock_sold: number;
   };
   images: string[];
@@ -20,14 +20,21 @@ export interface ProductInput {
   is_active: boolean;
   sold: number;
   shop_id: mongoose.Schema.Types.ObjectId;
-  brand: { name: string; logo: string };
+  brand: {
+    name: string;
+    logo: {
+      public_id: string;
+      url: string;
+    };
+  };
   sku: string;
   is_featured: boolean;
   is_taxable: boolean;
-  tax: number;
-  tax_included: boolean;
-  tax_type: string;
-  shipping_class: { name: string; price: number };
+  taxes: {
+    tax: number;
+    tax_included: boolean;
+    tax_type: string;
+  }[];
 }
 
 export interface ProductDocument extends ProductInput, mongoose.Document {
@@ -38,36 +45,36 @@ export interface ProductDocument extends ProductInput, mongoose.Document {
 const ProductSchema = new mongoose.Schema<ProductDocument>(
   {
     name: { type: String, required: true, trim: true },
-    short_description: { type: String, required: true, trim: true },
-    long_description: { type: String, required: true, trim: true },
+    short_description: { type: String, trim: true },
+    long_description: { type: String, trim: true },
     category: { type: mongoose.Schema.Types.ObjectId, required: true },
-    tags: [{ type: String, required: true }],
+    tags: [{ type: String }],
     base_price: { type: Number, required: true },
-    discount_price: { type: Number, required: true },
+    discount_price: { type: Number },
     stock: {
-      total_over_lifetime: { type: Number, required: true },
-      stock_left: { type: Function, required: true },
-      stock_sold: { type: Number, required: true },
+      total_over_lifetime: { type: Number },
+      stock_left: { type: Number },
+      stock_sold: { type: Number },
     },
-    images: [{ type: String, required: true }],
-    reviews: [{ type: String, required: true }],
-    rating: { type: Number, required: true },
-    is_active: { type: Boolean, required: true },
-    sold: { type: Number, required: true },
+    images: [{ type: String }],
+    reviews: [{ type: String }],
+    rating: { type: Number },
+    is_active: { type: Boolean, required: true, default: true },
     shop_id: { type: mongoose.Schema.Types.ObjectId, required: true },
     brand: {
       name: { type: String, required: true },
-      logo: { type: String, required: true },
+      logo: { type: String },
     },
-    sku: { type: String, required: true },
-    is_featured: { type: Boolean, required: true },
-    is_taxable: { type: Boolean, required: true },
-    tax: { type: Number, required: true },
-    tax_included: { type: Boolean, required: true },
-    tax_type: { type: String, required: true },
-    shipping_class: {
-      name: { type: String, required: true },
-    },
+    sku: { type: String, required: true, unique: true },
+    is_featured: { type: Boolean, default: false },
+    is_taxable: { type: Boolean, default: false },
+    taxes: [
+      {
+        tax: { type: Number },
+        tax_included: { type: Boolean },
+        tax_type: { type: String },
+      },
+    ],
   },
   {
     collection: "products",
