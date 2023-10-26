@@ -2,8 +2,6 @@ import mongoose from "mongoose";
 
 export interface CategoryInput {
   name: string;
-  description: string;
-  image: string;
   is_active: boolean;
 }
 
@@ -15,9 +13,7 @@ export interface CategoryDocument extends CategoryInput, mongoose.Document {
 const CategorySchema = new mongoose.Schema<CategoryDocument>(
   {
     name: { type: String, required: true, trim: true },
-    description: { type: String, required: true },
-    image: { type: String, required: true },
-    is_active: { type: Boolean, required: true },
+    is_active: { type: Boolean, required: true, default: true },
   },
   {
     collection: "categories",
@@ -25,6 +21,9 @@ const CategorySchema = new mongoose.Schema<CategoryDocument>(
   }
 );
 
-const Category = mongoose.model<CategoryDocument>("Category", CategorySchema);
+const CategoryModel = mongoose.model<CategoryDocument>(
+  "Category",
+  CategorySchema
+);
 
-export default Category;
+export default CategoryModel;

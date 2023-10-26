@@ -43,6 +43,7 @@ const UserSchema = new mongoose.Schema<UserDocument>(
     isEmailVerified: { type: Boolean, default: false },
     provider: { type: String },
     googleId: { type: String },
+    roles: [{ type: String, default: [Roles.USER] }],
 
     refreshTokens: [{ type: String, default: [] }],
   },
