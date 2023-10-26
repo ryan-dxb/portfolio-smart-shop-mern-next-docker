@@ -5,3 +5,9 @@ export interface GetAllShopProducts extends Request {
     id: string;
   };
 }
+
+export interface GetShopById extends Request {
+  params: {
+    id: string;
+  };
+}

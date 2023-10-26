@@ -2,6 +2,7 @@ import {
   createShop,
   getAllShopProducts,
   getAllShops,
+  getShopById,
 } from "@/controllers/shopControllers";
 import checkRoleMiddleware from "@/middlewares/checkRoleMiddleware";
 import isAuthenticated from "@/middlewares/isAuthenticated";
@@ -24,5 +25,7 @@ router
 router.route("/get-all-products/:id").get(getAllShopProducts);
 
 router.route("/").get(getAllShops);
+
+router.route("/:id").get(getShopById);
 
 export default router;
