@@ -1,4 +1,8 @@
-import { createShop } from "@/controllers/shopControllers";
+import {
+  createShop,
+  getAllShopProducts,
+  getAllShops,
+} from "@/controllers/shopControllers";
 import checkRoleMiddleware from "@/middlewares/checkRoleMiddleware";
 import isAuthenticated from "@/middlewares/isAuthenticated";
 import express from "express";
@@ -16,5 +20,9 @@ router
     checkRoleMiddleware(Roles.SELLER),
     createShop
   );
+
+router.route("/get-all-products/:id").get(getAllShopProducts);
+
+router.route("/").get(getAllShops);
 
 export default router;
