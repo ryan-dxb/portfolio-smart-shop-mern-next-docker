@@ -10,7 +10,7 @@ import createHttpError from "http-errors";
 import corsOptions from "./config/cors/corsOptions";
 
 import errorHandler from "./middlewares/errorHandler";
-// import routes from "./routes";
+import routes from "./routes";
 
 dotenv.config();
 
@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(compression());
 
 // Routes
-// app.use("/api/v1", routes);
+app.use("/api/v1", routes);
 
 // Not Found Handler
 app.use(async (req, res, next) => {

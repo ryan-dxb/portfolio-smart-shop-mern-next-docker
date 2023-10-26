@@ -71,8 +71,8 @@ const AddNewProductForm: FC<AddNewProductFormProps> = () => {
                 <Label className="text-xs font-medium text-gray-600 uppercase">
                   Product Images
                 </Label>
-                <div className="grid grid-cols-4 border gap-4 p-4">
-                  <div className="flex flex-col aspect-square border">
+                <div className="grid grid-cols-4 gap-4 p-4 border">
+                  <div className="flex flex-col border aspect-square">
                     <div className="flex flex-1 ">
                       <div className="relative w-full h-full bg-gray-50">
                         <Image
@@ -92,9 +92,9 @@ const AddNewProductForm: FC<AddNewProductFormProps> = () => {
                       </Button>
                     </div>
                   </div>
-                  <div className="aspect-square border"></div>
-                  <div className="aspect-square border"></div>
-                  <div className="aspect-square border"></div>
+                  <div className="border aspect-square"></div>
+                  <div className="border aspect-square"></div>
+                  <div className="border aspect-square"></div>
                 </div>
               </div>
 
@@ -117,7 +117,7 @@ const AddNewProductForm: FC<AddNewProductFormProps> = () => {
       </div>
 
       {/* Right Side */}
-      <div className="w-full  col-span-1 ">
+      <div className="w-full col-span-1 ">
         <div className="w-full p-4 border">
           <h3 className="text-lg font-semibold">Pricing</h3>
 
@@ -147,19 +147,19 @@ const AddNewProductForm: FC<AddNewProductFormProps> = () => {
                 >
                   In Stock
                 </Label>
-                <Switch className="h-4 w-8" id="in-stock" />
+                <Switch className="w-8 h-4" id="in-stock" />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="w-full p-4 border mt-4">
+        <div className="w-full p-4 mt-4 border">
           <h3 className="text-lg font-semibold">Product Organization</h3>
 
           <div className="mt-6">
             <div className="flex flex-col space-y-4">
               <CategoryDropDown />
-              <TagDropDown />
+              {/* <TagDropDown /> */}
             </div>
           </div>
         </div>
@@ -173,18 +173,18 @@ const AddNewProductForm: FC<AddNewProductFormProps> = () => {
 // };
 // const ProductVariantCard: FC<ProductVariantProps> = ({ index }) => {
 //   return (
-//     <div className="flex flex-row items-center space-x-8 mb-4">
+//     <div className="flex flex-row items-center mb-4 space-x-8">
 //       <Label className="text-xs font-medium text-gray-500">
 //         Variant {index}
 //       </Label>
-//       <div className="flex flex-row space-x-4 items-center">
+//       <div className="flex flex-row items-center space-x-4">
 //         <VariantOptionDropDown />
 //         <VariantOptionDropDown />
 
 //         <Input placeholder="Price" className="flex flex-1" />
 
-//         <Button variant="ghost" className="h-10 w-10 p-0 m-0 rounded">
-//           <AiOutlineDelete className="h-4 w-4 m-2 fill-red-500" />
+//         <Button variant="ghost" className="w-10 h-10 p-0 m-0 rounded">
+//           <AiOutlineDelete className="w-4 h-4 m-2 fill-red-500" />
 //         </Button>
 //       </div>
 //     </div>
