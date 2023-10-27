@@ -3,7 +3,6 @@ import asyncHandler from "express-async-handler";
 import sendError from "@/utils/sendError";
 import createHttpError from "http-errors";
 import {
-  DecodedToken,
   refreshTokenErrorHandler,
   refreshTokenReuseDetection,
   updateUserRefreshTokens,
@@ -64,12 +63,21 @@ const refreshTokenController = asyncHandler(
       }
 
       // Send new refresh token to client
-      res.cookie("refreshToken", newRefreshToken, {
-        httpOnly: true,
-        sameSite: "strict",
-        secure: process.env.HTTPONLY_SECURE === "true" ? true : false,
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-      });
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+      res.setHeader(
+        "Access-Control-Allow-Origin",
+        "http://admin.localhost:8080"
+      );
+
+      // send set-cookie header
+      res.setHeader("Set-Cookie", [
+        `refreshToken=${newRefreshToken}; HttpOnly; Path=/; Max-Age=${
+          60 * 60 * 24 * 7
+        }; SameSite=None; Secure`,
+        `accessToken=${newAccessToken}; HttpOnly; Path=/; Max-Age=${
+          60 * 60
+        }; SameSite=None; Secure`,
+      ]);
 
       // Send new access token to client
       res.status(200).json({

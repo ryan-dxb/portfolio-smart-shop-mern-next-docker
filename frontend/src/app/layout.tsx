@@ -4,6 +4,7 @@ import "./globals.css";
 import TopBar from "@/components/shared/TopBar/TopBar";
 import Header from "@/components/shared/Header/Header";
 import Footer from "@/components/shared/Footer/Footer";
+import StoreProvider from "@/components/providers/store-provider";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={rubik.className}>
-        <TopBar />
-        <Header />
-        {children}
-        <Footer />
+        <StoreProvider>
+          <TopBar />
+          <Header />
+          {children}
+          <Footer />
+        </StoreProvider>
       </body>
     </html>
   );

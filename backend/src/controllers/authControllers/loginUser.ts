@@ -62,12 +62,21 @@ const loginController: RequestHandler = asyncHandler(
 
       await user.save();
 
-      res.cookie("refreshToken", newRefreshToken, {
-        httpOnly: true,
-        sameSite: "strict",
-        secure: process.env.HTTPONLY_SECURE === "true" ? true : false,
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-      });
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+      res.setHeader(
+        "Access-Control-Allow-Origin",
+        "http://admin.localhost:8080"
+      );
+
+      // send set-cookie header
+      res.setHeader("Set-Cookie", [
+        `refreshToken=${newRefreshToken}; HttpOnly; domain=.localhost; Path=/; Max-Age=${
+          60 * 60 * 24 * 30
+        }; SameSite=None; Secure`,
+        `accessToken=${newAccessToken}; HttpOnly;  domain=.localhost; Path=/; Max-Age=${
+          60 * 60
+        }; SameSite=None; Secure`,
+      ]);
 
       // Remove password from user object
       const userObj = createUserObjWithoutPassword(user);
