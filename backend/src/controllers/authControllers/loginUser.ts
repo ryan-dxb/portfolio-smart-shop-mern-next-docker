@@ -70,10 +70,10 @@ const loginController: RequestHandler = asyncHandler(
 
       // send set-cookie header
       res.setHeader("Set-Cookie", [
-        `refreshToken=${newRefreshToken}; HttpOnly; domain=.localhost; Path=/; Max-Age=${
+        `refresh-token=${newRefreshToken}; HttpOnly; domain=.localhost; Path=/; Max-Age=${
           60 * 60 * 24 * 30
         }; SameSite=None; Secure`,
-        `accessToken=${newAccessToken}; HttpOnly;  domain=.localhost; Path=/; Max-Age=${
+        `access-token=${newAccessToken}; HttpOnly;  domain=.localhost; Path=/; Max-Age=${
           60 * 60
         }; SameSite=None; Secure`,
       ]);
@@ -86,7 +86,6 @@ const loginController: RequestHandler = asyncHandler(
         message: "Login successful",
         data: {
           user: userObj,
-          accessToken: newAccessToken,
         },
       });
     } catch (error) {

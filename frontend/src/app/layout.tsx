@@ -5,6 +5,7 @@ import TopBar from "@/components/shared/TopBar/TopBar";
 import Header from "@/components/shared/Header/Header";
 import Footer from "@/components/shared/Footer/Footer";
 import StoreProvider from "@/components/providers/store-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -22,10 +23,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={rubik.className}>
         <StoreProvider>
-          <TopBar />
-          <Header />
-          {children}
-          <Footer />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem={false}
+            disableTransitionOnChange
+            storageKey="admin-theme"
+          >
+            {children}
+          </ThemeProvider>
         </StoreProvider>
       </body>
     </html>

@@ -14,6 +14,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Checkbox } from "../ui/checkbox";
 import Link from "next/link";
 import { useLoginUserMutation } from "@/store/features/auth/api/authApi";
+import { AlertCircle } from "lucide-react";
 
 interface LoginFormProps {}
 
@@ -24,7 +25,7 @@ const LoginFormSchema = z.object({
 
 const LoginForm: NextPage<LoginFormProps> = () => {
   const { toast } = useToast();
-  const [signIn, { isLoading, isError, isSuccess, isUninitialized }] =
+  const [signIn, { isLoading, isError, isSuccess, isUninitialized, error }] =
     useLoginUserMutation();
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({
@@ -55,6 +56,11 @@ const LoginForm: NextPage<LoginFormProps> = () => {
       // }
     } catch (error: any) {
       console.log("error", error);
+
+      form.setError("root", {
+        type: "manual",
+        message: error?.message,
+      });
 
       toast({
         title: "Error",
@@ -102,6 +108,17 @@ const LoginForm: NextPage<LoginFormProps> = () => {
                 Forgot Password?
               </Link>
             </div>
+
+            {isError && (
+              <div className="items-center w-full px-2 py-1 text-sm bg-red-500 rounded text-accent">
+                <div className="flex items-center">
+                  <p className="inline-flex items-center space-x-2">
+                    <AlertCircle size={16} />
+                    <span>{error?.message || "Something went wrong"}</span>
+                  </p>
+                </div>
+              </div>
+            )}
 
             <Button type="submit" className="w-full">
               Submit

@@ -13,7 +13,7 @@ import { generateTokens } from "@/services/token.service";
 const refreshTokenController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const refreshTokenFromCookies = req.cookies.refreshToken;
+      const refreshTokenFromCookies = req.cookies.refresh_token;
 
       if (!refreshTokenFromCookies) {
         return sendError(
@@ -71,10 +71,10 @@ const refreshTokenController = asyncHandler(
 
       // send set-cookie header
       res.setHeader("Set-Cookie", [
-        `refreshToken=${newRefreshToken}; HttpOnly; Path=/; Max-Age=${
+        `refresh-token=${newRefreshToken}; HttpOnly; Path=/; Max-Age=${
           60 * 60 * 24 * 7
         }; SameSite=None; Secure`,
-        `accessToken=${newAccessToken}; HttpOnly; Path=/; Max-Age=${
+        `access-token=${newAccessToken}; HttpOnly; Path=/; Max-Age=${
           60 * 60
         }; SameSite=None; Secure`,
       ]);
@@ -84,7 +84,6 @@ const refreshTokenController = asyncHandler(
         message: "Refresh token generated successfully",
         data: {
           id: decodedUser.id,
-          accessToken: newAccessToken,
         },
       });
     } catch (error) {

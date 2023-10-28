@@ -4,9 +4,9 @@ import {
   verifyEmail,
   refreshToken,
   resendVerifyEmail,
-  changePassword,
-  forgotPassword,
-  resetPassword,
+  // changePassword,
+  // forgotPassword,
+  // resetPassword,
   logout,
 } from "@/controllers/authControllers";
 import isAuthenticated from "@/middlewares/isAuthenticated";
@@ -37,16 +37,16 @@ router
 
 router.route("/refresh-token").post(refreshToken);
 
-router
-  .route("/change-password")
-  .post(schemaValidator(changePasswordSchema), isAuthenticated, changePassword);
+// router
+//   .route("/change-password")
+//   .post(schemaValidator(changePasswordSchema), isAuthenticated, changePassword);
 
-router
-  .route("/forgot-password")
-  .post(schemaValidator(forgotPasswordSchema), forgotPassword);
-router
-  .route("/reset-password")
-  .post(schemaValidator(resetPasswordSchema), resetPassword);
+// router
+//   .route("/forgot-password")
+//   .post(schemaValidator(forgotPasswordSchema), forgotPassword);
+// router
+//   .route("/reset-password")
+//   .post(schemaValidator(resetPasswordSchema), resetPassword);
 
 router.route("/logout").post(isAuthenticated, logout);
 

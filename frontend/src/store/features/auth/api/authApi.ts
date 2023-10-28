@@ -33,7 +33,7 @@ export const authApi = createApi({
         try {
           console.log("onQueryStarted", args, (await queryFulfilled).meta);
 
-          const { data, message } = (await queryFulfilled).data;
+          const { data } = (await queryFulfilled).data;
 
           if (data.user) {
             const sessionObj = {
@@ -48,10 +48,6 @@ export const authApi = createApi({
         } catch (err) {
           console.log("onQueryStarted error", err);
         }
-      },
-
-      transformResponse: (response: SignInResponse) => {
-        return response;
       },
 
       transformErrorResponse: (response: {

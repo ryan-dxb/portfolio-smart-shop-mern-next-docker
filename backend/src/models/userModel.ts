@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import logger from "@/config/logger.config";
 
 export enum Roles {
   USER = "user",
@@ -52,6 +53,17 @@ const UserSchema = new mongoose.Schema<UserDocument>(
     timestamps: true,
   }
 );
+
+// Check if user has roles
+UserSchema.pre("save", function (next) {
+  let user = this as UserDocument;
+
+  if (user.roles && user.roles.length === 0) {
+    user.roles!.push(Roles.USER);
+  }
+
+  next();
+});
 
 // Encrypt password using bcrypt
 UserSchema.pre("save", async function (next) {

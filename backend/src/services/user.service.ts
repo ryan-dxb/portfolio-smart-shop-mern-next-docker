@@ -21,6 +21,7 @@ export const createUserObjWithoutPassword = (user: UserDocument) => {
     lastName: userObj.lastName,
     avatar: userObj.avatar,
     status: userObj.status,
+    roles: userObj.roles,
   };
 
   return newObj as UserObj;
