@@ -8,6 +8,7 @@ import {
   // forgotPassword,
   // resetPassword,
   logout,
+  getMe,
 } from "@/controllers/authControllers";
 import isAuthenticated from "@/middlewares/isAuthenticated";
 import schemaValidator from "@/middlewares/schemaValidator";
@@ -36,6 +37,8 @@ router
   .post(schemaValidator(resendVerifyEmailSchema), resendVerifyEmail);
 
 router.route("/refresh-token").post(refreshToken);
+
+router.route("/me").get(isAuthenticated, getMe);
 
 // router
 //   .route("/change-password")

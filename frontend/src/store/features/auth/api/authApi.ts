@@ -96,6 +96,33 @@ export const authApi = createApi({
       // },
     }),
 
+    refreshToken: builder.mutation<any, any>({
+      query: () => ({
+        url: "auth/refresh-token",
+        method: "POST",
+        credentials: "include",
+      }),
+
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        console.log("onQueryStarted", args, queryFulfilled);
+
+        try {
+          const data = await queryFulfilled;
+          console.log("onQueryStarted data", data);
+
+          if (data.data.success) {
+          }
+        } catch (err) {
+          console.log("onQueryStarted error", err);
+        }
+      },
+
+      transformResponse: (response: any) => {
+        console.log("transformResponse", response);
+        return response;
+      },
+    }),
+
     // verifyUser: builder.mutation<VerifyResponse, any>({
     //   query: (credentials) => ({
     //     url: "auth/verify-email",
@@ -242,6 +269,7 @@ export const {
   useLoginUserMutation,
   useRegisterUserMutation,
   useLogoutUserMutation,
+  useRefreshTokenMutation,
   // useVerifyUserMutation,
   // useSendVerificationEmailMutation,
   // useForgotPasswordMutation,

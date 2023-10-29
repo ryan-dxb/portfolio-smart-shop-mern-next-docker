@@ -13,7 +13,7 @@ import { generateTokens } from "@/services/token.service";
 const refreshTokenController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const refreshTokenFromCookies = req.cookies.refresh_token;
+      const refreshTokenFromCookies = req.cookies["refresh-token"];
 
       if (!refreshTokenFromCookies) {
         return sendError(
@@ -26,7 +26,9 @@ const refreshTokenController = asyncHandler(
 
       if (!decodedUser) {
         return sendError(
-          createHttpError.Forbidden("Something went wrong. Please login again")
+          createHttpError.Forbidden(
+            "No Decoded User, Something went wrong. Please login again"
+          )
         );
       }
 
@@ -84,6 +86,7 @@ const refreshTokenController = asyncHandler(
         message: "Refresh token generated successfully",
         data: {
           id: decodedUser.id,
+          accessToken: newAccessToken,
         },
       });
     } catch (error) {

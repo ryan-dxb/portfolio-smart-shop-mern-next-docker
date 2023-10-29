@@ -122,7 +122,7 @@ export const refreshTokenErrorHandler = async (
       await removeRefreshTokensFromUser(decodedUser.id);
     }
 
-    res.clearCookie("refreshToken", {
+    res.clearCookie("refresh-token", {
       httpOnly: true,
       sameSite: "strict",
       secure: process.env.HTTPONLY_SECURE === "true" ? true : false,

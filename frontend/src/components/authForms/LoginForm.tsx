@@ -9,7 +9,7 @@ import * as z from "zod";
 import { Form } from "@/components/ui/form";
 import FormInputField from "./common/FormInputField";
 import Formfooter from "./common/FormFooter";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Checkbox } from "../ui/checkbox";
 import Link from "next/link";
@@ -24,6 +24,9 @@ const LoginFormSchema = z.object({
 });
 
 const LoginForm: NextPage<LoginFormProps> = () => {
+  const router = useRouter();
+  const redirectUrl = useSearchParams();
+
   const { toast } = useToast();
   const [signIn, { isLoading, isError, isSuccess, isUninitialized, error }] =
     useLoginUserMutation();
@@ -33,8 +36,8 @@ const LoginForm: NextPage<LoginFormProps> = () => {
     mode: "onBlur",
     reValidateMode: "onBlur",
     defaultValues: {
-      email: "",
-      password: "",
+      email: "test@test.com",
+      password: "test123",
     },
   });
 
@@ -47,13 +50,25 @@ const LoginForm: NextPage<LoginFormProps> = () => {
 
       console.log("response", response);
 
-      // if (response) {
-      //   toast({
-      //     title: "Success",
-      //     description: response?.message + " !! Redirecting to home page...",
-      //     className: "bg-green-500",
-      //   });
-      // }
+      if (response) {
+        toast({
+          title: "Success",
+          description: response?.message + " !! Redirecting to home page...",
+          className: "bg-green-500",
+        });
+      }
+
+      // setTimeout(() => {
+      //   const redirect = redirectUrl.get("next");
+
+      //   if (redirect) {
+      //     console.log("redirect", redirect);
+
+      //     router.push(redirect);
+      //   } else {
+      //     router.push("/");
+      //   }
+      // }, 2000);
     } catch (error: any) {
       console.log("error", error);
 
@@ -114,7 +129,7 @@ const LoginForm: NextPage<LoginFormProps> = () => {
                 <div className="flex items-center">
                   <p className="inline-flex items-center space-x-2">
                     <AlertCircle size={16} />
-                    <span>{error?.message || "Something went wrong"}</span>
+                    {/* <span>{error?.message || "Something went wrong"}</span> */}
                   </p>
                 </div>
               </div>

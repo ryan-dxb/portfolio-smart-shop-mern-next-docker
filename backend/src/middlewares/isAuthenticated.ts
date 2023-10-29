@@ -10,6 +10,8 @@ const isAuthenticated: RequestHandler = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     let token: string = "";
 
+    console.log("isAuthenticated", req.headers.authorization);
+
     const authHeader = req.headers.authorization;
 
     if (authHeader && authHeader.startsWith("Bearer")) {

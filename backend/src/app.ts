@@ -31,6 +31,9 @@ app.use(compression());
 
 // Routes
 app.use("/api/v1", routes);
+app.use("/api/v1/json", (req, res, next) => {
+  res.json({ message: "Hello from the API" });
+});
 
 // Not Found Handler
 app.use(async (req, res, next) => {

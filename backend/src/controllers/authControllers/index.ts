@@ -7,6 +7,7 @@ import changePasswordController from "./changePassword";
 import forgotPasswordController from "./forgotPassword";
 import resetPasswordController from "./resetPassword";
 import logoutController from "./logout";
+import getMeController from "./getMe";
 
 export {
   registerController as register,
@@ -18,4 +19,5 @@ export {
   forgotPasswordController as forgotPassword,
   resetPasswordController as resetPassword,
   logoutController as logout,
+  getMeController as getMe,
 };
