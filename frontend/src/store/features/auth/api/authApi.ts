@@ -31,8 +31,6 @@ export const authApi = createApi({
 
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
-          console.log("onQueryStarted", args, (await queryFulfilled).meta);
-
           const { data } = (await queryFulfilled).data;
 
           if (data.user) {
@@ -45,9 +43,7 @@ export const authApi = createApi({
             };
             await createSession(sessionObj);
           }
-        } catch (err) {
-          console.log("onQueryStarted error", err);
-        }
+        } catch (err) {}
       },
 
       transformErrorResponse: (response: {

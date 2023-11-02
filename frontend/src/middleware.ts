@@ -95,7 +95,7 @@ export default async function middleware(request: NextRequest) {
 
     if (accessToken) {
       // Check if the access token is valid
-      const decodedAccessToken = decodeJwt(accessToken) as Paylod;
+      const decodedAccessToken = decodeJwt(accessToken);
 
       console.log("middleware", decodedAccessToken);
 
@@ -114,7 +114,7 @@ export default async function middleware(request: NextRequest) {
       const accessTokenExp = decodedAccessToken.exp;
       const now = Math.floor(Date.now() / 1000);
 
-      const isAccessTokenExpired = accessTokenExp < now;
+      const isAccessTokenExpired = accessTokenExp! < now;
 
       // If access token is expired, send refresh token to get new access token
 
